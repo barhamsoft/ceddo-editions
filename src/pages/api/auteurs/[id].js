@@ -1,6 +1,8 @@
 import { getAuteurById, updateAuteur, deleteAuteur } from '../../../services/auteurService';
+import { withMiddleware } from '@/lib/middleware';
+import { apiKeyMiddleware } from '@/middleware/apiKeyMiddleware';
 
-export default async function handler(req, res) {
+async function handler(req, res) {
   const { id } = req.query;
   
   if (req.method === 'GET') {
@@ -17,3 +19,5 @@ export default async function handler(req, res) {
     res.status(405).end(`Method ${req.method} Not Allowed`);
   }
 }
+
+export default withMiddleware(handler, apiKeyMiddleware);

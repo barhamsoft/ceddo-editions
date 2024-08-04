@@ -1,6 +1,8 @@
 import { createLivre, getLivres } from '@/services/livreService';
+import { withMiddleware } from '@/lib/middleware';
+import { apiKeyMiddleware } from '@/middleware/apiKeyMiddleware';
 
-export default async function handler(req, res) {
+async function handler(req, res) {
      if (req.method === 'POST') {
           const livre = await createLivre(req.body);
           res.status(201).json(livre);
@@ -12,3 +14,5 @@ export default async function handler(req, res) {
           res.status(405).end(`Method ${req.method} Not Allowed`);
      }
 }
+
+export default withMiddleware(handler, apiKeyMiddleware);

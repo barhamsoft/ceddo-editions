@@ -1,6 +1,8 @@
 import { createAuteur, getAuteurs } from '../../../services/auteurService';
+import { withMiddleware } from '@/lib/middleware';
+import { apiKeyMiddleware } from '@/middleware/apiKeyMiddleware';
 
-export default async function handler(req, res) {
+async function handler(req, res) {
      if (req.method === 'POST') {
           const auteur = await createAuteur(req.body);
           res.status(201).json(auteur);
@@ -12,3 +14,5 @@ export default async function handler(req, res) {
           res.status(405).end(`Method ${req.method} Not Allowed`);
      }
 }
+
+export default withMiddleware(handler, apiKeyMiddleware);

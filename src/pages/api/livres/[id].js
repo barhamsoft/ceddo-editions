@@ -1,8 +1,10 @@
 import { getLivreById, updateLivre, deleteLivre } from '@/services/livreService';
+import { withMiddleware } from '@/lib/middleware';
+import { apiKeyMiddleware } from '@/middleware/apiKeyMiddleware';
 
-export default async function handler(req, res) {
+async function handler(req, res) {
      const { id } = req.query;
-
+     
      if (req.method === 'GET') {
           const livre = await getLivreById(Number(id));
           res.status(200).json(livre);
@@ -17,3 +19,5 @@ export default async function handler(req, res) {
           res.status(405).end(`Method ${req.method} Not Allowed`);
      }
 }
+
+export default withMiddleware(handler, apiKeyMiddleware);

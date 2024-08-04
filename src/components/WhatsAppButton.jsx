@@ -15,7 +15,7 @@ const WhatsAppButton = () => {
         onClick={handleClick}
         className="flex items-center justify-center w-12 h-12 bg-green-500 rounded-full shadow-lg"
       >
-        <Image src="/watsap.png" alt="WhatsApp" width={32} height={32} />
+        <Image src="/whatsapp.png" alt="WhatsApp" width={50} height={32} />
       </button>
     </div>
   );
